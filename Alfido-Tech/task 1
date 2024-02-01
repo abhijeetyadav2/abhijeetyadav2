@@ -1,0 +1,64 @@
+class Task:
+    def _init_(self, number, text, priority):
+        self.number = number
+        self.text = text
+        self.priority = priority
+
+    def _str_(self):
+        return f"{self.number}: {self.text} ({self.priority})"
+
+def display_tasks():
+    for task in tasks:
+        print(task)
+
+def add_task():
+    task_number = input("Enter task number: ")
+    task_text = input("Enter task description: ")
+    task_priority = input("Enter task priority (low, medium, high): ")
+    tasks.append(Task(task_number, task_text, task_priority))
+
+def delete_task():
+    task_number = input("Enter task number to delete: ")
+    global tasks
+    tasks = [task for task in tasks if task.number != task_number]
+
+def edit_task():
+    task_number = input("Enter task number to edit: ")
+    task_text = input("Enter new task description: ")
+    task_priority = input("Enter new task priority: ")
+    for task in tasks:
+        if task.number == task_number:
+            task.text = task_text
+            task.priority = task_priority
+
+def sort_tasks():
+    tasks.sort(key=lambda x: x.priority)
+
+def menu():
+    while True:
+        print("\n--- To-Do List ---")
+        print("1. Display tasks")
+        print("2. Add task")
+        print("3. Delete task")
+        print("4. Edit task")
+        print("5. Sort tasks by priority")
+        print("6. Quit")
+        choice = input("Enter the number of your choice: ")
+
+        if choice == "1":
+            display_tasks()
+        elif choice == "2":
+            add_task()
+        elif choice == "3":
+            delete_task()
+        elif choice == "4":
+            edit_task()
+        elif choice == "5":
+            sort_tasks()
+        elif choice == "6":
+            break
+        else:
+            print("Please enter a valid choice.")
+
+tasks = []
+menu()
