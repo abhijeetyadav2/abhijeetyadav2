@@ -1,0 +1,49 @@
+import random
+import string
+
+def generate_password(length=12, include_special_chars=True, include_numbers=True):
+    """
+    Generate a random password based on user-defined criteria.
+    
+    Parameters:
+    length (int): The length of the generated password. Default is 12.
+    include_special_chars (bool): If True, the password will include special characters. Default is True.
+    include_numbers (bool): If True, the password will include numbers. Default is True.
+    
+    Returns:
+    str: The generated password.
+    """
+    
+    # Define the character sets to be used in the password
+    lowercase_chars = string.ascii_lowercase
+    uppercase_chars = string.ascii_uppercase
+    special_chars = string.punctuation
+    number_chars = string.digits
+    
+    # Combine the character sets based on the user's preferences
+    if not include_special_chars:
+        special_chars = ''
+    if not include_numbers:
+        number_chars = ''
+    all_chars = lowercase_chars + uppercase_chars + special_chars + number_chars
+    
+    # Generate the password
+    password = ''
+    while len(password) < length:
+        # Randomly select a character set
+        char_set = random.choice([lowercase_chars, uppercase_chars, special_chars, number_chars])
+        # Randomly select a character from the selected character set
+        new_char = random.choice(char_set)
+        # Add the new character to the password
+        password += new_char
+    
+    # Shuffle the password to ensure randomness
+    password = list(password)
+    random.shuffle(password)
+    password = ''.join(password)
+    
+    return password
+
+# Example usage
+password = generate_password(length=12, include_special_chars=True, include_numbers=True)
+print(password)
